@@ -5,33 +5,33 @@
 # ------------------------------------------------------------------------------
 
 variable "db_host" {
-  type        = string
   description = "The hostname of the MongoDB server."
+  type        = string
 }
 
 variable "lambda_deployment_artifact_s3_bucket" {
-  type        = string
   description = "The name of the S3 bucket where the Lambda function deployment artifact is stored."
+  type        = string
 }
 
 variable "lambda_deployment_artifact_s3_key" {
-  type        = string
   description = "The S3 object key for the Lambda function deployment artifact stored in the CyHy Lambda artifacts S3 bucket."
+  type        = string
 }
 
 variable "lambda_function_name" {
-  type        = string
   description = "The name for the Lambda function."
+  type        = string
 }
 
 variable "ssb_db_secrets" {
+  description = "The SSM Parameter Store secrets that contain the information necessary to connect to the MongoDB server."
   type = object({
     authdb            = string
     pass              = string
     user              = string
     target_collection = optional(string)
   })
-  description = "The SSM Parameter Store secrets that contain the information necessary to connect to the MongoDB server."
 }
 
 # ------------------------------------------------------------------------------
@@ -41,73 +41,73 @@ variable "ssb_db_secrets" {
 # ------------------------------------------------------------------------------
 
 variable "db_port" {
-  type        = string
-  description = "The port to use when connecting to the MongoDB server."
   default     = "27017"
+  description = "The port to use when connecting to the MongoDB server."
+  type        = string
 }
 
 variable "eventbridge_bus_name" {
-  type        = string
-  description = "The name of the EventBridge bus to create. If a value is not provided, the value of the lambda_function_name variable will be used."
   default     = null
+  description = "The name of the EventBridge bus to create. If a value is not provided, the value of the lambda_function_name variable will be used."
+  type        = string
 }
 
 variable "eventbridge_cron_description" {
-  type        = string
-  description = "The description to associate with the EventBridge cron configuration."
   default     = "Run the cyhy-nvdsync Lambda every day at midnight UTC."
+  description = "The description to associate with the EventBridge cron configuration."
+  type        = string
 }
 
 variable "eventbridge_cron_schedule_expression" {
-  type        = string
-  description = "The schedule expression for the EventBridge cron configuration."
   default     = "cron(0 0 * * ? *)"
+  description = "The schedule expression for the EventBridge cron configuration."
+  type        = string
 }
 
 variable "eventbridge_role_description" {
-  type        = string
-  description = "The description to associate with the IAM role for the EventBridge."
   default     = "IAM role for the CyHy NVD Sync EventBridge."
+  description = "The description to associate with the IAM role for the EventBridge."
+  type        = string
 }
 
 variable "eventbridge_role_name" {
-  type        = string
-  description = "The name of the IAM role for the EventBridge. If a value is not provided, the value of the lambda_function_name variable with \"-eventbridge\" will be used."
   default     = null
+  description = "The name of the IAM role for the EventBridge. If a value is not provided, the value of the lambda_function_name variable with \"-eventbridge\" will be used."
+  type        = string
 }
 
 variable "lambda_function_description" {
-  type        = string
-  description = "The description to associate with the Lambda function."
   default     = "Lambda function for importing NVD CVE data into the CyHy MongoDB database."
+  description = "The description to associate with the Lambda function."
+  type        = string
 }
 
 variable "lambda_function_handler" {
-  type        = string
-  description = "The entrypoint for the Lambda."
   default     = "lambda_handler.handler"
+  description = "The entrypoint for the Lambda."
+  type        = string
 }
 
 variable "lambda_function_runtime" {
-  type        = string
-  description = "The base name for the Lambda function."
   default     = "python3.9"
+  description = "The base name for the Lambda function."
+  type        = string
 }
 
 variable "tags" {
-  type        = map(string)
-  description = "Tags to apply to all AWS resources created."
   default     = {}
+  description = "Tags to apply to all AWS resources created."
+  type        = map(string)
 }
 
 variable "vpc_security_group_ids" {
-  type        = list(string)
-  description = "The list of security group IDs to associate with the Lambda function."
   default     = null
+  description = "The list of security group IDs to associate with the Lambda function."
+  type        = list(string)
 }
 
 variable "vpc_subnet_ids" {
-  type        = list(string)
-  description = "The list of subnet IDs to associate with the Lambda function."
   default     = null
+  description = "The list of subnet IDs to associate with the Lambda function."
+  type        = list(string)
 }

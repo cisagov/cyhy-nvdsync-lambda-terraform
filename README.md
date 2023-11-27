@@ -46,6 +46,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
+| eventbridge | terraform-aws-modules/eventbridge/aws | ~> 2.3 |
 | lambda | terraform-aws-modules/lambda/aws | ~> 6.5 |
 
 ## Resources ##
@@ -58,6 +59,11 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | db\_host | The hostname of the MongoDB server. | `string` | n/a | yes |
 | db\_port | The port to use when connecting to the MongoDB server. | `string` | `"27017"` | no |
+| eventbridge\_bus\_name | The name of the EventBridge bus to create. If a value is not provided, the value of the lambda\_function\_name variable will be used. | `string` | `null` | no |
+| eventbridge\_cron\_description | The description to associate with the EventBridge cron configuration. | `string` | `"Run the cyhy-nvdsync Lambda every day at midnight UTC."` | no |
+| eventbridge\_cron\_schedule\_expression | The schedule expression for the EventBridge cron configuration. | `string` | `"cron(0 0 * * ? *)"` | no |
+| eventbridge\_role\_description | The description to associate with the IAM role for the EventBridge. | `string` | `"IAM role for the CyHy NVD Sync EventBridge."` | no |
+| eventbridge\_role\_name | The name of the IAM role for the EventBridge. If a value is not provided, the value of the lambda\_function\_name variable with "-eventbridge" will be used. | `string` | `null` | no |
 | lambda\_deployment\_artifact\_s3\_bucket | The name of the S3 bucket where the Lambda function deployment artifact is stored. | `string` | n/a | yes |
 | lambda\_deployment\_artifact\_s3\_key | The S3 object key for the Lambda function deployment artifact stored in the CyHy Lambda artifacts S3 bucket. | `string` | n/a | yes |
 | lambda\_function\_description | The description to associate with the Lambda function. | `string` | `"Lambda function for importing NVD CVE data into the CyHy MongoDB database."` | no |

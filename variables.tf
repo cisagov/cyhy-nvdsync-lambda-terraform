@@ -51,6 +51,36 @@ variable "db_port" {
   default     = "27017"
 }
 
+variable "eventbridge_bus_name" {
+  type        = string
+  description = "The name of the EventBridge bus to create. If a value is not provided, the value of the lambda_function_name variable will be used."
+  default     = null
+}
+
+variable "eventbridge_cron_description" {
+  type        = string
+  description = "The description to associate with the EventBridge cron configuration."
+  default     = "Run the cyhy-nvdsync Lambda every day at midnight UTC."
+}
+
+variable "eventbridge_cron_schedule_expression" {
+  type        = string
+  description = "The schedule expression for the EventBridge cron configuration."
+  default     = "cron(0 0 * * ? *)"
+}
+
+variable "eventbridge_role_description" {
+  type        = string
+  description = "The description to associate with the IAM role for the EventBridge."
+  default     = "IAM role for the CyHy NVD Sync EventBridge."
+}
+
+variable "eventbridge_role_name" {
+  type        = string
+  description = "The name of the IAM role for the EventBridge. If a value is not provided, the value of the lambda_function_name variable with \"-eventbridge\" will be used."
+  default     = null
+}
+
 variable "lambda_function_description" {
   type        = string
   description = "The description to associate with the Lambda function."

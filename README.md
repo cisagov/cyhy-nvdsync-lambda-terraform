@@ -40,40 +40,43 @@ module "example" {
 
 ## Providers ##
 
-| Name | Version |
-|------|---------|
-| aws | ~> 4.9 |
+No providers.
 
 ## Modules ##
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| lambda | terraform-aws-modules/lambda/aws | ~> 6.5 |
 
 ## Resources ##
 
-| Name | Type |
-|------|------|
-| [aws_instance.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
-| [aws_ami.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
-| [aws_default_tags.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/default_tags) | data source |
+No resources.
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| ami\_owner\_account\_id | The ID of the AWS account that owns the Example AMI, or "self" if the AMI is owned by the same account as the provisioner. | `string` | `"self"` | no |
-| aws\_availability\_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.). | `string` | `"a"` | no |
-| aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
-| subnet\_id | The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0). | `string` | n/a | yes |
+| db\_host | The hostname of the MongoDB server. | `string` | n/a | yes |
+| db\_port | The port to use when connecting to the MongoDB server. | `string` | `"27017"` | no |
+| lambda\_deployment\_artifact\_s3\_bucket | The name of the S3 bucket where the Lambda function deployment artifact is stored. | `string` | n/a | yes |
+| lambda\_deployment\_artifact\_s3\_key | The S3 object key for the Lambda function deployment artifact stored in the CyHy Lambda artifacts S3 bucket. | `string` | n/a | yes |
+| lambda\_function\_description | The description to associate with the Lambda function. | `string` | `"Lambda function for importing NVD CVE data into the CyHy MongoDB database."` | no |
+| lambda\_function\_handler | The entrypoint for the Lambda. | `string` | `"lambda_handler.handler"` | no |
+| lambda\_function\_name | The name for the Lambda function. | `string` | n/a | yes |
+| lambda\_function\_runtime | The base name for the Lambda function. | `string` | `"python3.9"` | no |
+| ssm\_db\_authdb | The SSM Parameter Store secret that contains the database used to authenticate with the MongoDB server. | `string` | n/a | yes |
+| ssm\_db\_pass | The SSM Parameter Store secret that contains the password used to authenticate with the MongoDB server. | `string` | n/a | yes |
+| ssm\_db\_target\_collection | The SSM Parameter Store secret that contains the name of the collection in the MongoDB database to import the NVD CVE data into. | `string` | `null` | no |
+| ssm\_db\_user | The SSM Parameter Store secret that contains the username used to authenticate with the MongoDB server. | `string` | n/a | yes |
+| tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
+| vpc\_security\_group\_ids | The list of security group IDs to associate with the Lambda function. | `list(string)` | `null` | no |
+| vpc\_subnet\_ids | The list of subnet IDs to associate with the Lambda function. | `list(string)` | `null` | no |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| arn | The EC2 instance ARN. |
-| availability\_zone | The AZ where the EC2 instance is deployed. |
-| id | The EC2 instance ID. |
-| private\_ip | The private IP of the EC2 instance. |
-| subnet\_id | The ID of the subnet where the EC2 instance is deployed. |
+| lambda\_function\_arn | The ARN of the Lambda function. |
 <!-- END_TF_DOCS -->
 
 ## Notes ##

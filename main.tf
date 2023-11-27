@@ -1,61 +1,28 @@
-# ------------------------------------------------------------------------------
-# Deploy the example AMI from cisagov/skeleton-packer in AWS.
-# ------------------------------------------------------------------------------
+module "lambda" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "~> 6.5"
 
-# ------------------------------------------------------------------------------
-# Look up the latest example AMI from cisagov/skeleton-packer.
-#
-# NOTE: This Terraform data source must return at least one AMI result
-# or the apply will fail.
-# ------------------------------------------------------------------------------
+  function_name = var.lambda_function_name
+  description   = var.lambda_function_description
+  handler       = var.lambda_function_handler
+  runtime       = var.lambda_function_runtime
 
-# The AMI from cisagov/skeleton-packer
-data "aws_ami" "example" {
-  filter {
-    name = "name"
-    values = [
-      "example-hvm-*-x86_64-ebs",
-    ]
+  create_package = false
+  s3_existing_package = {
+    bucket = var.lambda_deployment_artifact_s3_bucket
+    key    = var.lambda_deployment_artifact_s3_key
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+  vpc_subnet_ids         = var.vpc_subnet_ids
+  vpc_security_group_ids = var.vpc_security_group_ids
+  attach_network_policy  = true
+
+  environment_variables = {
+    db_host                  = var.db_host
+    db_port                  = var.db_port
+    ssm_db_authdb            = var.ssm_db_authdb
+    ssm_db_pass              = var.ssm_db_pass
+    ssm_db_target_collection = var.ssm_db_target_collection
+    ssm_db_user              = var.ssm_db_user
   }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-
-  owners = [
-    var.ami_owner_account_id
-  ]
-  most_recent = true
-}
-
-# The default tags configured for the default provider
-data "aws_default_tags" "default" {}
-
-# The example EC2 instance
-resource "aws_instance" "example" {
-  ami               = data.aws_ami.example.id
-  instance_type     = "t3.micro"
-  availability_zone = "${var.aws_region}${var.aws_availability_zone}"
-  subnet_id         = var.subnet_id
-
-  # The tag or tags specified here will be merged with the provider's
-  # default tags.
-  tags = {
-    "Name" = "Example"
-  }
-  # volume_tags does not yet inherit the default tags from the
-  # provider.  See hashicorp/terraform-provider-aws#19188 for more
-  # details.
-  volume_tags = merge(
-    data.aws_default_tags.default.tags,
-    {
-      "Name" = "Example"
-    },
-  )
 }

@@ -18,9 +18,11 @@ module "nvdsync_lambda" {
 
   db_host = "database.example.com"
 
-  ssm_db_authdb = "/nvdsync-lambda/production/db/authentication_db"
-  ssm_db_pass   = "/nvdsync-lambda/production/db/password"
-  ssm_db_user   = "/nvdsync-lambda/production/db/username"
+  ssb_db_secrets = {
+    authdb = "/nvdsync-lambda/production/db/authentication_db"
+    pass   = "/nvdsync-lambda/production/db/password"
+    user   = "/nvdsync-lambda/production/db/username"
+  }
 }
 ```
 
@@ -33,7 +35,7 @@ module "nvdsync_lambda" {
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 1.0 |
+| terraform | ~> 1.3 |
 | aws | ~> 4.9 |
 
 ## Providers ##
@@ -68,10 +70,7 @@ No resources.
 | lambda\_function\_handler | The entrypoint for the Lambda. | `string` | `"lambda_handler.handler"` | no |
 | lambda\_function\_name | The name for the Lambda function. | `string` | n/a | yes |
 | lambda\_function\_runtime | The base name for the Lambda function. | `string` | `"python3.9"` | no |
-| ssm\_db\_authdb | The SSM Parameter Store secret that contains the database used to authenticate with the MongoDB server. | `string` | n/a | yes |
-| ssm\_db\_pass | The SSM Parameter Store secret that contains the password used to authenticate with the MongoDB server. | `string` | n/a | yes |
-| ssm\_db\_target\_collection | The SSM Parameter Store secret that contains the name of the collection in the MongoDB database to import the NVD CVE data into. | `string` | `null` | no |
-| ssm\_db\_user | The SSM Parameter Store secret that contains the username used to authenticate with the MongoDB server. | `string` | n/a | yes |
+| ssb\_db\_secrets | The SSM Parameter Store secrets that contain the information necessary to connect to the MongoDB server. | ```object({ authdb = string pass = string user = string target_collection = optional(string) })``` | n/a | yes |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
 | vpc\_security\_group\_ids | The list of security group IDs to associate with the Lambda function. | `list(string)` | `null` | no |
 | vpc\_subnet\_ids | The list of subnet IDs to associate with the Lambda function. | `list(string)` | `null` | no |

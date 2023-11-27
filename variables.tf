@@ -24,19 +24,14 @@ variable "lambda_function_name" {
   description = "The name for the Lambda function."
 }
 
-variable "ssm_db_authdb" {
-  type        = string
-  description = "The SSM Parameter Store secret that contains the database used to authenticate with the MongoDB server."
-}
-
-variable "ssm_db_pass" {
-  type        = string
-  description = "The SSM Parameter Store secret that contains the password used to authenticate with the MongoDB server."
-}
-
-variable "ssm_db_user" {
-  type        = string
-  description = "The SSM Parameter Store secret that contains the username used to authenticate with the MongoDB server."
+variable "ssb_db_secrets" {
+  type = object({
+    authdb            = string
+    pass              = string
+    user              = string
+    target_collection = optional(string)
+  })
+  description = "The SSM Parameter Store secrets that contain the information necessary to connect to the MongoDB server."
 }
 
 # ------------------------------------------------------------------------------
@@ -97,12 +92,6 @@ variable "lambda_function_runtime" {
   type        = string
   description = "The base name for the Lambda function."
   default     = "python3.9"
-}
-
-variable "ssm_db_target_collection" {
-  type        = string
-  description = "The SSM Parameter Store secret that contains the name of the collection in the MongoDB database to import the NVD CVE data into."
-  default     = null
 }
 
 variable "tags" {

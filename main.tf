@@ -20,10 +20,10 @@ module "lambda" {
   environment_variables = {
     db_host                  = var.db_host
     db_port                  = var.db_port
-    ssm_db_authdb            = var.ssm_db_authdb
-    ssm_db_pass              = var.ssm_db_pass
-    ssm_db_target_collection = var.ssm_db_target_collection
-    ssm_db_user              = var.ssm_db_user
+    ssm_db_authdb            = var.ssb_db_secrets.authdb
+    ssm_db_pass              = var.ssb_db_secrets.pass
+    ssm_db_target_collection = var.ssb_db_secrets.target_collection
+    ssm_db_user              = var.ssb_db_secrets.user
   }
 }
 

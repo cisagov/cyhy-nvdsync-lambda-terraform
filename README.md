@@ -2,27 +2,25 @@
 
 [![GitHub Build Status](https://github.com/cisagov/nvdsync-lambda-tf-module/workflows/build/badge.svg)](https://github.com/cisagov/nvdsync-lambda-tf-module/actions)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) [Terraform
-module](https://www.terraform.io/docs/modules/index.html) GitHub
-repository started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit
-hooks](https://pre-commit.com) and
-[GitHub Actions](https://github.com/features/actions) configurations
-appropriate for the major languages that we use.
-
-See [here](https://www.terraform.io/docs/modules/index.html) for more
-details on Terraform modules and the standard module structure.
+This project creates the resources necessary to deploy [cisagov/cyhy-nvdsync-lambda](https://github.com/cisagov/cyhy-nvdsync-lambda)
+with an AWS EventBridge configuration to trigger it on a schedule.
 
 ## Usage ##
 
 ```hcl
-module "example" {
+module "nvdsync_lambda" {
   source = "github.com/cisagov/nvdsync-lambda-tf-module"
 
-  aws_region            = "us-west-1"
-  aws_availability_zone = "b"
-  subnet_id             = "subnet-0123456789abcdef0"
+  lambda_function_name = "nvdsync-lambda"
+
+  lambda_deployment_artifact_s3_bucket = "lambda-artifacts"
+  lambda_deployment_artifact_s3_key    = "nvdsync-lambda/lambda.zip"
+
+  db_host = "database.example.com"
+
+  ssm_db_authdb = "/nvdsync-lambda/production/db/authentication_db"
+  ssm_db_pass   = "/nvdsync-lambda/production/db/password"
+  ssm_db_user   = "/nvdsync-lambda/production/db/username"
 }
 ```
 

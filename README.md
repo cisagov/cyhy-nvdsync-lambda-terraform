@@ -1,6 +1,6 @@
-# cyhy-nvdsync-lambda-terraform #
+# nvdsync-lambda-tf-module #
 
-[![GitHub Build Status](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/workflows/build/badge.svg)](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/actions)
+[![GitHub Build Status](https://github.com/cisagov/nvdsync-lambda-tf-module/workflows/build/badge.svg)](https://github.com/cisagov/nvdsync-lambda-tf-module/actions)
 
 This is a generic skeleton project that can be used to quickly get a
 new [cisagov](https://github.com/cisagov) [Terraform
@@ -18,7 +18,7 @@ details on Terraform modules and the standard module structure.
 
 ```hcl
 module "example" {
-  source = "github.com/cisagov/cyhy-nvdsync-lambda-terraform"
+  source = "github.com/cisagov/nvdsync-lambda-tf-module"
 
   aws_region            = "us-west-1"
   aws_availability_zone = "b"
@@ -28,7 +28,7 @@ module "example" {
 
 ## Examples ##
 
-- [Basic usage](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/tree/develop/examples/basic_usage)
+- [Basic usage](https://github.com/cisagov/nvdsync-lambda-tf-module/tree/develop/examples/basic_usage)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements ##

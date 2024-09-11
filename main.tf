@@ -52,3 +52,21 @@ module "eventbridge" {
     ]
   }
 }
+
+resource "aws_lambda_invocation" "lambda_first_run" {
+  function_name = module.lambda.lambda_function_name
+  input = jsonencode({
+    # These keys are in invocation input from AWS services.
+    "detail-type" = "Terraform Invocation"
+    "source" = "terraform"
+    # This key mimics functionality in v5 of the provider with the
+    # `lifecycle_scope = "CRUD"` argument. Once we upgrade to v5 we should
+    # remove this key and uncomment the lifecycle_scope below since we only
+    # want this invocation to run when the Lambda is created.
+    "tf" = {
+      "action"     = "create"
+      "prev_input" = null
+    }
+  })
+  # lifecycle_scope = "CREATE_ONLY"
+}

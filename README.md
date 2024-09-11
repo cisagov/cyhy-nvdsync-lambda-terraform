@@ -40,7 +40,9 @@ module "nvdsync_lambda" {
 
 ## Providers ##
 
-No providers.
+| Name | Version |
+|------|---------|
+| aws | ~> 4.9 |
 
 ## Modules ##
 
@@ -51,7 +53,9 @@ No providers.
 
 ## Resources ##
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_lambda_invocation.lambda_first_run](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 
 ## Inputs ##
 

@@ -1,6 +1,8 @@
 # cyhy-nvdsync-lambda-terraform #
 
 [![GitHub Build Status](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/workflows/build/badge.svg)](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/actions)
+[![License](https://img.shields.io/github/license/cisagov/cyhy-nvdsync-lambda-terraform)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/workflows/CodeQL/badge.svg)](https://github.com/cisagov/cyhy-nvdsync-lambda-terraform/actions/workflows/codeql-analysis.yml)
 
 This is a generic skeleton project that can be used to quickly get a
 new [cisagov](https://github.com/cisagov) [Terraform
